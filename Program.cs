@@ -6,22 +6,60 @@ class Program
     {
         Console.WriteLine("=== Calculatrice C# ===");
 
-        Console.Write("Premier nombre: ");
-        double num1 = Convert.ToDouble(Console.ReadLine());
+        double num1,
+            num2;
+        string input;
 
-        Console.Write("Opérateur (+, -, *, /): ");
-        char op = Console.ReadKey().KeyChar;
-        Console.WriteLine();
+        // Premier nombre
+        while (true)
+        {
+            Console.Write("Premier nombre: ");
+            input = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(input) && double.TryParse(input, out num1))
+                break;
+            Console.WriteLine("Entrée invalide. Veuillez entrer un nombre valide.");
+        }
 
-        Console.Write("Deuxième nombre: ");
-        double num2 = Convert.ToDouble(Console.ReadLine());
+        // Opérateur
+        char op;
+        while (true)
+        {
+            Console.Write("Opérateur (+, -, *, /): ");
+            input = Console.ReadLine() ?? string.Empty;
+            if (!string.IsNullOrWhiteSpace(input) && input.Length == 1)
+            {
+                op = input[0];
+                if ("+-*/".Contains(op))
+                    break;
+            }
+            Console.WriteLine("Opérateur invalide. Utilisez +, -, * ou /.");
+        }
+
+        // Deuxième nombre
+        while (true)
+        {
+            Console.Write("Deuxième nombre: ");
+            input = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(input) && double.TryParse(input, out num2))
+            {
+                if (op == '/' && num2 == 0)
+                {
+                    Console.WriteLine(
+                        "Division par zéro impossible. Veuillez entrer un autre nombre."
+                    );
+                    continue;
+                }
+                break;
+            }
+            Console.WriteLine("Entrée invalide. Veuillez entrer un nombre valide.");
+        }
 
         double result = op switch
         {
             '+' => num1 + num2,
             '-' => num1 - num2,
             '*' => num1 * num2,
-            '/' => num2 != 0 ? num1 / num2 : double.NaN,
+            '/' => num1 / num2,
             _ => double.NaN
         };
 
