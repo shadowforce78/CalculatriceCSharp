@@ -14,7 +14,7 @@ class Program
         while (true)
         {
             Console.Write("Premier nombre: ");
-            input = Console.ReadLine();
+            input = Console.ReadLine() ?? string.Empty;
             if (!string.IsNullOrWhiteSpace(input) && double.TryParse(input, out num1))
                 break;
             Console.WriteLine("Entrée invalide. Veuillez entrer un nombre valide.");
@@ -39,7 +39,7 @@ class Program
         while (true)
         {
             Console.Write("Deuxième nombre: ");
-            input = Console.ReadLine();
+            input = Console.ReadLine() ?? string.Empty;
             if (!string.IsNullOrWhiteSpace(input) && double.TryParse(input, out num2))
             {
                 if (op == '/' && num2 == 0)
